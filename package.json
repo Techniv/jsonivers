@@ -1,0 +1,20 @@
+{
+	"name": "jsoniners",
+	"version": "0.0.1",
+
+	"authors": {
+		"name": "Vincent Peybernes",
+		"email": "vpeybernes.pro@gmail.com",
+		"url":"https://plus.google.com/117597625821202130678?rel=author"
+	},
+
+	"main": "/libs/module.js",
+
+	"engines": {"node": ">= 0.8.*"},
+
+	"devDependencies": {
+		"grunt": "*",
+		"grunt-contrib-nodeunit": "*",
+		"nodeunit": "*"
+	}
+}
