@@ -1,6 +1,8 @@
 {
 	"name": "jsoniners",
 	"version": "0.0.1",
+	"description": "A JSON toolbox.",
+	"license": "MIT",
 
 	"authors": {
 		"name": "Vincent Peybernes",
@@ -10,7 +12,16 @@
 
 	"main": "/libs/jsonivers.js",
 
-	"engines": {"node": ">= 0.8.*"},
+	"homepage": "https://github.com/Techniv/jsonivers",
+	"repository":{
+		"type":	"git",
+		"url":	"https://github.com/Techniv/jsonivers.git"
+	},
+	"bugs": {
+		"url": "https://github.com/Techniv/jsonivers/issues"
+	},
+
+	"engines": {"node": ">= 0.10.*"},
 
 	"devDependencies": {
 		"grunt": 					"*",
