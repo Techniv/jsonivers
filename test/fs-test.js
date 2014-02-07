@@ -7,18 +7,21 @@ var jsonExpect = {
 	"number": 1,
 	"boolean": true
 }
-var jsonPath = "test/resources/test.json"
+var jsonPath = "test/resources/readTest.json",
+	jsonWritePath = "test/resources/writeTest.json",
+	jsonUnWritePath = "test/resources/";
 
 var path = require('path');
-var jsonivers = require('../libs/module').fs;
+var jsonivers = require('../libs/jsonivers').fs;
+var fs = require('fs');
 
 module.exports = {
 	getJSON: function(test){
 		test.expect(2);
 
-		jsonivers.read(jsonPath,function(err, json){
+		jsonivers.readJsonFile(jsonPath,function(err, json){
 			test.equals(err, undefined, 'Error');
-			test.equals(JSON.stringify(json), JSON.stringify(jsonExpect), 'JSON expect');
+			test.deepEqual(json, jsonExpect, 'JSON expect');
 			test.done();
 		});
 	}
@@ -26,8 +29,8 @@ module.exports = {
 		test.expect(2);
 
 		test.doesNotThrow(function(){
-			var json = jsonivers.readSync(jsonPath);
-			test.equals(JSON.stringify(json), JSON.stringify(jsonExpect), 'JSON expect');
+			var json = jsonivers.readJsonFileSync(jsonPath);
+			test.deepEqual(json, jsonExpect, 'JSON expect');
 		});
 
 		test.done();
@@ -35,7 +38,7 @@ module.exports = {
 	, getJSONError: function(test){
 		test.expect(2);
 
-		jsonivers.read(jsonPath+'s',function(err, json){
+		jsonivers.readJsonFile(jsonPath+'s',function(err, json){
 			test.equals(typeof err, 'object', 'Error');
 			test.equals(json, undefined, 'JSON expect');
 			test.done();
@@ -45,10 +48,56 @@ module.exports = {
 		test.expect(1);
 
 		test.throws(function(){
-			var json = jsonivers.readSync(jsonPath+'s');
+			var json = jsonivers.readJsonFileSync(jsonPath+'s');
 			test.equals(json, undefined, 'JSON expect');
 		});
 
+		test.done();
+	}
+
+	, writeJSON: function (test){
+		test.expect(3);
+		jsonivers.writeJsonFile(jsonWritePath, jsonExpect, function(err){
+			test.equals(err, undefined, 'Error');
+			test.ok(fs.existsSync(jsonWritePath));
+
+			if(fs.existsSync(jsonWritePath))
+				var writeData = fs.readFileSync(jsonWritePath);
+
+			test.equals(writeData.toString().replace(/^(\s|[\r\n])*((.|\r\n])*?)(\s|[\r\n])*$/, "$2"), JSON.stringify(jsonExpect), "Content");
+			fs.unlinkSync(jsonWritePath);
+			test.done();
+		});
+	}
+	, writeJSONError: function (test){
+		test.expect(3);
+		jsonivers.writeJsonFile(jsonUnWritePath, jsonExpect, function(err){
+			test.equals(typeof err, 'object', 'Error');
+			test.equals(err.constructor.name, 'Error', 'Error');
+			test.ok(fs.existsSync(jsonUnWritePath));
+
+			test.done();
+		});
+	}
+
+	, writeJSONSync: function (test){
+		test.expect(2);
+		jsonivers.writeJsonFileSync(jsonWritePath, jsonExpect);
+		test.ok(fs.existsSync(jsonWritePath));
+
+		if(fs.existsSync(jsonWritePath))
+			var writeData = fs.readFileSync(jsonWritePath);
+
+		test.equals(writeData.toString().replace(/^(\s|[\r\n])*((.|\r\n])*?)(\s|[\r\n])*$/, "$2"), JSON.stringify(jsonExpect), "Content");
+
+		fs.unlinkSync(jsonWritePath);
+		test.done();
+	}
+	, writeJSONSyncError: function (test){
+		test.expect(1);
+		test.throws(function(){
+			jsonivers.writeSync(jsonUnWritePath, jsonExpect);
+		}, 'Error');
 		test.done();
 	}
 }
