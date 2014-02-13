@@ -10,6 +10,14 @@ var config = {
 module.exports = function (grunt) {
 
 	grunt.initConfig({
+		connect: {
+			server: {
+				options: {
+					port: 8000,
+					base: './test/resources'
+				}
+			}
+		},
 		nodeunit: {
 			all: ['test/**/*-test.js']
 		},
@@ -25,12 +33,13 @@ module.exports = function (grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-nodeunit');
 	grunt.loadNpmTasks('grunt-jsdoc');
+	grunt.loadNpmTasks('grunt-contrib-connect');
 
-	grunt.registerTask('default', ['nodeunit']);
+	grunt.registerTask('default', ['connect','nodeunit']);
 	grunt.registerTask('build', ['doc', 'nodeunit']);
 
 	grunt.registerTask('doc', 'Create doc.', function(){
 		grunt.file.delete(config.docPath, {force:true});
 		grunt.task.run('jsdoc');
-	})
+	});
 };

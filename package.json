@@ -27,6 +27,7 @@
 		"grunt": 					"*",
 		"grunt-contrib-nodeunit": 	"*",
 		"grunt-jsdoc":				"*",
+		"grunt-contrib-connect":	"*",
 		"nodeunit": 				"*"
 	}
 }

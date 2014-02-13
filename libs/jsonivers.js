@@ -9,5 +9,11 @@ module.exports = {
 	 * File system API.
 	 * {@link module:jsonivers/fs}
 	 */
-	fs: require('./fs')
+	fs: require('./fs'),
+
+	/**
+	 * HTTP API.
+	 * {@link module:jsonivers/http}
+	 */
+	http: require('./http')
 };

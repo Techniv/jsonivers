@@ -6,7 +6,7 @@ var jsonExpect = {
 	"name": "test",
 	"number": 1,
 	"boolean": true
-}
+};
 var jsonPath = "test/resources/readTest.json",
 	jsonWritePath = "test/resources/writeTest.json",
 	jsonUnWritePath = "test/resources/";
