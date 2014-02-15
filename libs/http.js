@@ -13,6 +13,11 @@ var acceptedMime= [
 
 module.exports = {
 
+	/**
+	 * Get JSON data from HTTP service.
+	 * @param url {string}
+	 * @param callback {function} Get two parameters (error, data).
+	 */
 	get: function(url, callback){
 		http.get(url, function(res){
 			if(res.statusCode != 200){

@@ -35,8 +35,9 @@ module.exports = function (grunt) {
 	grunt.loadNpmTasks('grunt-jsdoc');
 	grunt.loadNpmTasks('grunt-contrib-connect');
 
-	grunt.registerTask('default', ['connect','nodeunit']);
-	grunt.registerTask('build', ['doc', 'nodeunit']);
+	grunt.registerTask('default', ['build', 'test']);
+	grunt.registerTask('build', ['doc']);
+	grunt.registerTask('test', ['connect', 'nodeunit']);
 
 	grunt.registerTask('doc', 'Create doc.', function(){
 		grunt.file.delete(config.docPath, {force:true});

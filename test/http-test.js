@@ -27,7 +27,6 @@ module.exports = {
 		jsonivers.get(url+'/error', function(err, data){
 			test.equals(typeof err, 'object', 'Error');
 			test.equals(err.constructor.name, Error.name, 'Error.name');
-			console.log(err);
 			test.equals(data, undefined);
 			test.done();
 		});
