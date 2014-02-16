@@ -39,6 +39,4 @@ This module provide utilities to get and send JSON data by HTTP request.
 
  - [get( {string} url, {function} callback) → {void}]
    (https://github.com/Techniv/jsonivers/wiki/Module---HTTP#wiki-get-string-url-function-callback--void)
- - [getSync( {string} url ) → {object}]
-   (https://github.com/Techniv/jsonivers/wiki/Module---HTTP#wiki-getsync-string-url---object)
 

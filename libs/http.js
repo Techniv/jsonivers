@@ -51,16 +51,5 @@ module.exports = {
 		}).on("error", function(err){
 			callback(err);
 		});
-	},
-
-
-	/**
-	 * This method get synchronously a JSON file from an HTTP resource URL and return the data to JavaScript object.
-	 * Can throw error if fail.
-	 * @param url {string}
-	 * @return {object} The JSON data.
-	 */
-	getSync: function(url){
-		//TODO Implement
 	}
 };
