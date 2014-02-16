@@ -1,6 +1,9 @@
 /**
- * Created by vincent.peybernes on 05/02/14.
+ * Created by Vincent Peybernes on 05/02/14.
  * @module jsonivers
+ * @license MIT
+ * @author Vincent Peybernes
+ * @copyright 2014
  */
 
 
@@ -17,3 +20,18 @@ module.exports = {
 	 */
 	http: require('./http')
 };
+
+// TYPEDEF
+
+/**
+ * Callback for asynchronous data reading.
+ * @callback readCallback
+ * @param {Error} err Undefined if success.
+ * @param {object} data The JSON data converted to object.
+ */
+
+/**
+ * Callback for asynchronous data writing.
+ * @callback writeCallback
+ * @param {Error} err Undefined if success.
+ */

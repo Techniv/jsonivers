@@ -1,6 +1,8 @@
 /**
  * Created by vincent.peybernes on 05/02/14.
  * @module jsonivers/fs
+ * @license MIT
+ * @author Vincent Peybernes
  */
 
 var fs = require('fs');
@@ -9,9 +11,10 @@ var path = require('path');
 module.exports = {
 
 	/**
-	 * Read a JSON file
+	 * This method read a JSON file on the filesystem asynchronously.
+	 * The callback take two parameters : the error object and an object representing the read data.
 	 * @param filePath {string}
-	 * @param callback {function} take two arguments : (error, data)
+	 * @param callback {readCallback} take two arguments : (error, data)
 	 */
 	readJsonFile: function readJsonFile(filePath, callback){
 		path.resolve(filePath);
@@ -46,7 +49,8 @@ module.exports = {
 	},
 
 	/**
-	 * Read a JSON file synchronous.
+	 * This method read a JSON file on the filesystem synchronously.
+	 * It return an object representing the read data. Can throw error if fail.
 	 * @param filePath {string}
 	 * @return {object}
 	 * @throws {Error}
@@ -61,10 +65,11 @@ module.exports = {
 	},
 
 	/**
-	 * Serialize an object into a JSON file.
+	 * This method serialize an object to JSON and write it on filesystem asynchronously.
+	 * The callback take an error object in parameter.
 	 * @param filePath {string}
 	 * @param data {object}
-	 * @param callback {function} take one arguments : (error)
+	 * @param callback {writeCallback} take one arguments : (error)
 	 */
 	writeJsonFile: function writeJsonFile(filePath, data, callback){
 		filePath = path.resolve(filePath);
@@ -90,7 +95,8 @@ module.exports = {
 	},
 
 	/**
-	 * Synchronous serialize an object into a JSON file.
+	 * This method serialize an object to JSON and write it on filesystem synchronously.
+	 * Can throw error if fail.
 	 * @param filePath {string}
 	 * @param data {object}
 	 * @throws {Error}

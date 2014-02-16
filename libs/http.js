@@ -1,6 +1,8 @@
 /**
  * Created by Vincent Peybernes on 12/02/14.
  * @module jsonivers/http
+ * @license MIT
+ * @author Vincent Peybernes
  */
 
 var http = require('http');
@@ -14,9 +16,10 @@ var acceptedMime= [
 module.exports = {
 
 	/**
-	 * Get JSON data from HTTP service.
+	 * This method get asynchronously a JSON file from an HTTP resource URL and return the data to JavaScript object.
+	 * The callback take two parameters : the error object and an object representing the read data.
 	 * @param url {string}
-	 * @param callback {function} Get two parameters (error, data).
+	 * @param callback {readCallback} Get two parameters (error, data).
 	 */
 	get: function(url, callback){
 		http.get(url, function(res){
@@ -48,5 +51,16 @@ module.exports = {
 		}).on("error", function(err){
 			callback(err);
 		});
+	},
+
+
+	/**
+	 * This method get synchronously a JSON file from an HTTP resource URL and return the data to JavaScript object.
+	 * Can throw error if fail.
+	 * @param url {string}
+	 * @return {object} The JSON data.
+	 */
+	getSync: function(url){
+		//TODO Implement
 	}
 };
