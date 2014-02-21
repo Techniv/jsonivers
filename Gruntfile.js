@@ -23,7 +23,7 @@ module.exports = function (grunt) {
 		},
 		jsdoc:{
 			dist:{
-				src: ['libs/*.js', 'ReadMe.md'],
+				src: ['libs/**/*.js', 'ReadMe.md'],
 				options:{
 					destination: config.docPath
 				}

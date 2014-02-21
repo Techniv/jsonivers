@@ -4,7 +4,9 @@
  */
 
 /**
- * @class
+ * @class JsonBinded
+ * @param {object} dataSrc
+ * @param {JsonAdapter} adapter
  */
 function JsonBinded(dataSrc, adapter){
 	var that = this;
@@ -24,6 +26,38 @@ function JsonBinded(dataSrc, adapter){
 			}
 		}
 	}
+
+	// API
+	/**
+	 * Save the data.
+	 * @memberOf JsonBinded
+	 * @instance
+	 */
+	function save(){
+		adapter.save(data, function(err){
+			if(err) throw err;
+		});
+	};
+	Object.defineProperty(that, 'save', {
+		value: save.bind(that)
+	});
+
+	/**
+	 * Get the data from source.
+	 * @memberOf JsonBinded
+	 * @instance
+	 * @param {readCallback} callback
+	 */
+	function get(callback){
+		adapter.get(function(err, getData){
+			if(err) throw err;
+			dataSrc = getData;
+			init();
+		});
+	}
+	Object.defineProperty(that, 'get', {
+		value: get.bind(that)
+	});
 
 	// Utils
 	function addDataProperty(name, value){
@@ -45,4 +79,33 @@ function JsonBinded(dataSrc, adapter){
 			writable: true, configurable: true
 		});
 	}
+
+
+	init();
 }
+
+module.exports = JsonBinded;
+
+/**
+ * @class JsonAdapter
+ * @abstract
+ */
+/**
+ * Get the data from the source.
+ * @method get
+ * @instance
+ * @abstract
+ * @memberOf JsonAdapter
+ * @param {string} path
+ * @param {readCallback} callback
+ */
+/**
+ * Save the data to the source.
+ * @method save
+ * @instance
+ * @abstract
+ * @memberOf JsonAdapter
+ * @param {string} path
+ * @param {object} data
+ * @param {readCallback} callback
+ */
