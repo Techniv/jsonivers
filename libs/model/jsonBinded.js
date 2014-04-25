@@ -32,31 +32,33 @@ function JsonBinded(dataSrc, adapter){
 	 * Save the data.
 	 * @memberOf JsonBinded
 	 * @instance
+	 * @param {jsonBindedCallback} callback
 	 */
-	function save(){
+	function _save(callback){
 		adapter.save(data, function(err){
-			if(err) throw err;
+			callback.call(that, err);
 		});
 	};
-	Object.defineProperty(that, 'save', {
-		value: save.bind(that)
+	Object.defineProperty(that, '_save', {
+		value: _save.bind(that)
 	});
 
 	/**
 	 * Get the data from source.
 	 * @memberOf JsonBinded
 	 * @instance
-	 * @param {readCallback} callback
+	 * @param {jsonBindedCallback} callback
 	 */
-	function get(callback){
+	function _get(callback){
 		adapter.get(function(err, getData){
 			if(err) throw err;
 			dataSrc = getData;
 			init();
+			callback.call(that, err);
 		});
 	}
-	Object.defineProperty(that, 'get', {
-		value: get.bind(that)
+	Object.defineProperty(that, '_get', {
+		value: _get.bind(that)
 	});
 
 	// Utils
@@ -84,6 +86,8 @@ function JsonBinded(dataSrc, adapter){
 	init();
 }
 
+JsonBinded.FSAdapter = require('../adapter/fs-adapter');
+
 module.exports = JsonBinded;
 
 /**
@@ -107,5 +111,11 @@ module.exports = JsonBinded;
  * @memberOf JsonAdapter
  * @param {string} path
  * @param {object} data
- * @param {readCallback} callback
+ * @param {writeCallback} callback
+ */
+
+/**
+ * Callback for getting JsonBinded. The context 'this' is the JsonBinded object.
+ * @callback jsonBindedCallback
+ * @param {Error} err Undefined if success.
  */
