@@ -35,6 +35,7 @@ function JsonBinded(dataSrc, adapter){
 	 * @param {jsonBindedCallback} callback
 	 */
 	function _save(callback){
+		synchronize();
 		adapter.save(data, function(err){
 			callback.call(that, err);
 		});
@@ -61,6 +62,7 @@ function JsonBinded(dataSrc, adapter){
 		value: _get.bind(that)
 	});
 
+
 	// Utils
 	function addDataProperty(name, value){
 		data[name] = value;
@@ -82,6 +84,22 @@ function JsonBinded(dataSrc, adapter){
 		});
 	}
 
+
+	function synchronize(){
+		var externalKeys = Object.getOwnPropertyNames(that);
+		var internalKeys = Object.getOwnPropertyNames(data);
+		dataSrc = {};
+		for(var i in externalKeys){
+			var key = externalKeys[i];
+			if( key == "_save" || key == "_get"
+				|| internalKeys.indexOf(key) != -1)
+				continue;
+
+			dataSrc[key] = that[key];
+		}
+
+		init();
+	}
 
 	init();
 }
