@@ -3,7 +3,7 @@
  */
 
 var fs = require('fs');
-var JsonBinded = require('../libs/model/jsonBinded');
+var JsonBinded = require('../libs/model/jsonBind');
 var jsonExpect = {
 	"name": "test",
 	"number": 1,

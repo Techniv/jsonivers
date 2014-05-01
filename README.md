@@ -40,3 +40,17 @@ This module provide utilities to get and send JSON data by HTTP request.
  - [get( {string} url, {function} callback) → {void}]
    (https://github.com/Techniv/jsonivers/wiki/Module---HTTP#wiki-get-string-url-function-callback--void)
 
+## JsonBind
+The JsonBind object provide an object like a literal basic object but with internal binding system to a data source (FS, HTTP, other).
+```javascript
+var JsonBind = require("jsonivers").JsonBind;
+```
+This is a constructor to create an object bound on a source. The binding
+is provided by a JsonAdapter what interface the object with the source.
+
+The first parameter is the original data object. Use an empty object to create
+an empty JsonBind or load the data from the source.
+
+The second parameter is an instance of JsonAdapter.
+
+[More detail on Wiki](https://github.com/Techniv/jsonivers/wiki/JsonBinded)
