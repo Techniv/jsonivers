@@ -1,4 +1,4 @@
-*0.2.0-dev*
+*0.2.0-b*
 
  - JsonBind implementation
  - JsonBind.FsAdapter implementation
