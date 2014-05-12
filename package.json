@@ -10,7 +10,7 @@
 		"url":"https://plus.google.com/117597625821202130678?rel=author"
 	},
 
-	"main": "/libs/jsonivers.js",
+	"main": "libs/jsonivers.js",
 
 	"homepage": "https://github.com/Techniv/jsonivers",
 	"repository":{
