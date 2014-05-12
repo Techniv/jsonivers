@@ -3,7 +3,7 @@
  */
 
 var fs = require('fs');
-var JsonBinded = require('../libs/model/jsonBinded');
+var JsonBinded = require('../libs/model/jsonBind');
 var jsonExpect = {
 	"name": "test",
 	"number": 1,
@@ -38,6 +38,21 @@ module.exports = {
 				test.equals(err, undefined, "JSON save err");
 				var file = fs.readFileSync(jsonWriteFile);
 				test.equals(file, JSON.stringify(jsonExpect), "JSON save");
+				fs.unlinkSync(jsonWriteFile);
+				test.done();
+			});
+		},
+		synchronize: function(test){
+			var jsonExpect = {foo: 'bar'};
+			var bind = new JsonBinded(jsonExpect, new JsonBinded.FSAdapter({path:jsonWriteFile}));
+			jsonExpect.test = 'test';
+			bind.test = jsonExpect.test;
+
+			bind._save(function(err){
+				test.equals(err, undefined, 'Synch error')
+				var file = fs.readFileSync(jsonWriteFile);
+				test.equals(file, JSON.stringify(jsonExpect), 'Synch');
+
 				fs.unlinkSync(jsonWriteFile);
 				test.done();
 			});

@@ -18,7 +18,13 @@ module.exports = {
 	 * HTTP API.
 	 * {@link module:jsonivers/http}
 	 */
-	http: require('./http')
+	http: require('./http'),
+
+	/**
+	 * JsonBind constructor.
+	 * @type JsonBind
+	 */
+	JsonBind: require('./model/jsonBind')
 };
 
 // TYPEDEF

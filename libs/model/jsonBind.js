@@ -1,14 +1,16 @@
 /**
  * Created by Vincent Peybernes on 16/02/14.
- * @module jsonivers/model/jsonbinded
+ * @module jsonivers/model/jsonbind
  */
 
 /**
- * @class JsonBinded
+ * @class JsonBind
+ * This is a constructor to create an object bound on a source. The binding
+ * is provided by a JsonAdapter what interface the object with the source.
  * @param {object} dataSrc
  * @param {JsonAdapter} adapter
  */
-function JsonBinded(dataSrc, adapter){
+function JsonBind(dataSrc, adapter){
 	var that = this;
 	var data = {};
 
@@ -30,11 +32,12 @@ function JsonBinded(dataSrc, adapter){
 	// API
 	/**
 	 * Save the data.
-	 * @memberOf JsonBinded
+	 * @memberOf JsonBind
 	 * @instance
-	 * @param {jsonBindedCallback} callback
+	 * @param {jsonBindCallback} callback
 	 */
 	function _save(callback){
+		synchronize();
 		adapter.save(data, function(err){
 			callback.call(that, err);
 		});
@@ -45,9 +48,9 @@ function JsonBinded(dataSrc, adapter){
 
 	/**
 	 * Get the data from source.
-	 * @memberOf JsonBinded
+	 * @memberOf JsonBind
 	 * @instance
-	 * @param {jsonBindedCallback} callback
+	 * @param {jsonBindCallback} callback
 	 */
 	function _get(callback){
 		adapter.get(function(err, getData){
@@ -60,6 +63,7 @@ function JsonBinded(dataSrc, adapter){
 	Object.defineProperty(that, '_get', {
 		value: _get.bind(that)
 	});
+
 
 	// Utils
 	function addDataProperty(name, value){
@@ -83,12 +87,28 @@ function JsonBinded(dataSrc, adapter){
 	}
 
 
+	function synchronize(){
+		var externalKeys = Object.getOwnPropertyNames(that);
+		var internalKeys = Object.getOwnPropertyNames(data);
+		dataSrc = {};
+		for(var i in externalKeys){
+			var key = externalKeys[i];
+			if( key == "_save" || key == "_get"
+				|| internalKeys.indexOf(key) != -1)
+				continue;
+
+			dataSrc[key] = that[key];
+		}
+
+		init();
+	}
+
 	init();
 }
 
-JsonBinded.FSAdapter = require('../adapter/fs-adapter');
+JsonBind.FSAdapter = require('../adapter/fs-adapter');
 
-module.exports = JsonBinded;
+module.exports = JsonBind;
 
 /**
  * @class JsonAdapter
@@ -115,7 +135,7 @@ module.exports = JsonBinded;
  */
 
 /**
- * Callback for getting JsonBinded. The context 'this' is the JsonBinded object.
- * @callback jsonBindedCallback
+ * Callback for getting JsonBind. The context 'this' is the JsonBind object.
+ * @callback jsonBindCallback
  * @param {Error} err Undefined if success.
  */
