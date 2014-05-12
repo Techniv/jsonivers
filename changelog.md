@@ -1,3 +1,7 @@
+*0.2.1-b*
+
+ - Fix the main definition in package.json
+
 *0.2.0-b*
 
  - JsonBind implementation
