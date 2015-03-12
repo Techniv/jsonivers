@@ -1,6 +1,6 @@
 {
 	"name": "jsonivers",
-	"version": "0.3.0-b",
+	"version": "0.3.0",
 	"description": "JSONivers is a sub-modules collection to to manage JSON data.",
 	"license": "MIT",
 

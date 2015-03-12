@@ -1,3 +1,11 @@
+*0.3.0*
+
+ - Add writeHumanJsonFile to the filesystem API to write indented JSON file.
+
+*0.2.1*
+
+ - Publish stable
+
 *0.2.1-b*
 
  - Fix the main definition in package.json

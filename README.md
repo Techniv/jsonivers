@@ -28,6 +28,8 @@ This module provide utilities to read and write JSON data on filesystem.
    (https://github.com/Techniv/jsonivers/wiki/Module---FS#wiki-writejsonfile-string-filepath-object-data-function-callback---void)
  - [writeJsonFileSync( *{string}* filePath, *{object}* data ) → *{void}*]
    (https://github.com/Techniv/jsonivers/wiki/Module---FS#wiki-writejsonfilesync-string-filepath-object-data---void)
+ - [writeHumanJsonFile(*{string}* filePath, *{object}* data, *{function}* callback) → *{void}*]
+   (https://github.com/Techniv/jsonivers/wiki/Module---FS#writehumanjsonfilestring-filepath-object-data-function-callback--void)
 
 
 ## HTTP

@@ -114,7 +114,7 @@ module.exports = {
 	},
 
 	/**
-	 * This method serialize an object to human readable JSON and write it on filesystem synchronously. That take
+	 * This method serialize an object to human readable JSON and write it on filesystem asynchronously. That take
 	 * longer than non human readable method.
 	 * The callback take an error object in parameter.
 	 * @param filePath {string}
