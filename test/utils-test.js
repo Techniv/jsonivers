@@ -6,6 +6,7 @@ var data = {
 	"name": "test",
 	"number": 1,
 	"boolean": true,
+	"symbolString": "String: with \"symbol\" \r\n[like {this}]",
 	"object": {
 		"name": "test",
 		"number": 1
@@ -20,6 +21,7 @@ var jsonExpect = "{\r\n"
 	+"  \"name\": \"test\",\r\n"
 	+"  \"number\": 1,\r\n"
 	+"  \"boolean\": true,\r\n"
+	+"  \"symbolString\": \"String: with \\\"symbol\\\" \\r\\n[like {this}]\",\r\n"
 	+"  \"object\": {\r\n"
 	+"    \"name\": \"test\",\r\n"
 	+"    \"number\": 1\r\n"

@@ -10,23 +10,35 @@ module.exports = {
 	 */
 	jsonToHuman: function jsonToHuman(string, stream){
 		var t = 0;
+		var inStr = false;
 		for(var i = 0; i < string.length; i++){
 			var c = string[i];
 
-			if(c == ":"){
+			if(inStr){
+				stream.write(c);
+				if(c == "\"" && string[i-1] != "\\"){
+					inStr = false;
+				}
+				continue;
+			}
+
+			if(c == "\""){
+				inStr = true;
+				stream.write(c);
+			} else if (c == ":") {
 				stream.write(c);
 				stream.write(" ");
-			} else if(c == '{' || c == "["){
+			} else if (c == '{' || c == "[") {
 				stream.write(c);
 				stream.write("\r\n");
-				t+=2;
+				t += 2;
 				writeTabs(stream, t);
-			} else if(c == "}" || c == "]") {
+			} else if (c == "}" || c == "]") {
 				stream.write("\r\n");
-				t-=2;
+				t -= 2;
 				writeTabs(stream, t);
 				stream.write(c);
-			} else if (c == ","){
+			} else if (c == ",") {
 				stream.write(c);
 				stream.write("\r\n");
 				writeTabs(stream, t);
