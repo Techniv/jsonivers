@@ -6,7 +6,11 @@ var jsonivers = require('../libs/jsonivers').http;
 var jsonExpect = {
 	"name": "test",
 	"number": 1,
-	"boolean": true
+	"boolean": true,
+	"object": {
+		"name": "test",
+		"number": 1
+	}
 };
 
 var url = "http://localhost:8000/readTest.json";

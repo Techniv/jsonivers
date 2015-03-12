@@ -7,6 +7,7 @@
 
 var fs = require('fs');
 var path = require('path');
+var utils = require('./utils');
 
 module.exports = {
 
@@ -110,6 +111,35 @@ module.exports = {
 
 		var json = JSON.stringify(data);
 		fs.writeFileSync(filePath, json);
+	},
+
+	/**
+	 * This method serialize an object to human readable JSON and write it on filesystem synchronously. That take
+	 * longer than non human readable method.
+	 * The callback take an error object in parameter.
+	 * @param filePath {string}
+	 * @param data {object}
+	 * @param callback {writeCallback} take one arguments : (error)
+	 */
+	writeHumanJsonFile: function writeHumanJsonFile(filePath, data, callback){
+		filePath = path.resolve(filePath);
+		fs.stat(filePath, function(err, stat){
+			if(err || stat.isFile()){
+				var json;
+				try{
+					json = JSON.stringify(data);
+				} catch (e){
+					callback(e);
+					return;
+				}
+
+				var stream = fs.createWriteStream(filePath);
+				utils.jsonToHuman(json,stream);
+
+			} else {
+				callback(new Error('"'+filePath+'" is not a valid target to write.'));
+				return;
+			}
+		});
 	}
 }
-

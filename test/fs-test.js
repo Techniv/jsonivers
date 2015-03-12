@@ -5,7 +5,11 @@
 var jsonExpect = {
 	"name": "test",
 	"number": 1,
-	"boolean": true
+	"boolean": true,
+	"object": {
+		"name": "test",
+		"number": 1
+	}
 };
 var jsonPath = "test/resources/readTest.json",
 	jsonWritePath = "test/resources/writeTest.json",
