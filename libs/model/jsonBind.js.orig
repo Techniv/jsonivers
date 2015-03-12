@@ -10,7 +10,11 @@
  * @param {object} dataSrc
  * @param {JsonAdapter} adapter
  */
+<<<<<<< Updated upstream:libs/model/jsonBind.js
 function JsonBind(dataSrc, adapter){
+=======
+function JsonBinded(adapter, dataSrc){
+>>>>>>> Stashed changes:libs/model/jsonBinded.js
 	var that = this;
 	var data = {};
 
@@ -38,10 +42,16 @@ function JsonBind(dataSrc, adapter){
 	 * @instance
 	 * @param {jsonBindCallback} callback
 	 */
+<<<<<<< Updated upstream:libs/model/jsonBind.js
 	function _save(callback){
 		synchronize();
 		adapter.save(data, function(err){
 			callback.call(that, err);
+=======
+	function save(callback){
+		adapter.save(data, function(err){
+			callback.call(this,err);
+>>>>>>> Stashed changes:libs/model/jsonBinded.js
 		});
 	};
 	Object.defineProperty(that, '_save', {
@@ -58,8 +68,12 @@ function JsonBind(dataSrc, adapter){
 		adapter.get(function(err, getData){
 			if(err) throw err;
 			dataSrc = getData;
-			callback(err);
+<<<<<<< Updated upstream:libs/model/jsonBind.js
+			init();
 			callback.call(that, err);
+=======
+			callback(err);
+>>>>>>> Stashed changes:libs/model/jsonBinded.js
 		});
 	}
 	Object.defineProperty(that, '_get', {

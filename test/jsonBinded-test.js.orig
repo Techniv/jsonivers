@@ -2,8 +2,28 @@
  * Created by Vincent Peybernes on 20/02/14.
  */
 
+<<<<<<< Updated upstream
 var fs = require('fs');
 var JsonBinded = require('../libs/model/jsonBind');
+var jsonExpect = {
+	"name": "test",
+	"number": 1,
+	"boolean": true
+};
+var jsonReadFile = "test/resources/readTest.json";
+var jsonWriteFile = "test/resources/writeTest.json";
+
+module.exports = {
+	enumTest: function(test){
+		var bind = new JsonBinded(jsonExpect);
+		for(var key in bind){
+			test.ok(typeof jsonExpect[key] != "undefined", "Enum "+key);
+			test.deepEqual(bind[key], jsonExpect[key], "Value "+key);
+		}
+		test.equals(typeof bind._save, "function", "Save");
+=======
+	var fs = require('fs');
+var JsonBinded = require('../libs/model/jsonBinded');
 var FSAdapter = require('../libs/adapter/fs-adapter');
 var jsonExpect = {
 	"name": "test",
@@ -14,8 +34,6 @@ var jsonExpect = {
 		"number": 1
 	}
 }, jsonLength = Object.getOwnPropertyNames(jsonExpect).length;
-var jsonReadFile = "test/resources/readTest.json";
-var jsonWriteFile = "test/resources/writeTest.json";
 
 var jsonPath = "test/resources/readTest.json",
 	jsonWritePath = "test/resources/writeTest.json",
@@ -25,12 +43,14 @@ module.exports = {
 	enumTest: function(test){
 		var bind = new JsonBinded(undefined, jsonExpect);
 		test.deepEqual(bind, jsonExpect);
-		test.equals(typeof bind._save, "function", "Save");
+		test.equals(typeof bind.save, "function", "Save");
+>>>>>>> Stashed changes
 		test.done();
 	},
 
 	fs: {
 		get: function(test){
+<<<<<<< Updated upstream
 			var bind = new JsonBinded({}, new JsonBinded.FSAdapter({path:jsonReadFile}));
 			bind._get(function(err){
 				test.equals(err, undefined, "JSON get err");
@@ -60,6 +80,26 @@ module.exports = {
 				test.equals(file, JSON.stringify(jsonExpect), 'Synch');
 
 				fs.unlinkSync(jsonWriteFile);
+=======
+			test.expect(2);
+			var bind = new JsonBinded(new FSAdapter({path:jsonPath}), jsonExpect);
+			bind.get(function(err){
+				test.equals(err,undefined);
+				test.deepEqual(bind, jsonExpect);
+				test.done();
+			});
+		},
+
+		save: function(test){
+			test.expect(2);
+			var bind = new JsonBinded(new FSAdapter({path:jsonWritePath}), jsonExpect);
+
+			bind.save(function(err){
+				test.equals(err,undefined, "Error");
+				var file = fs.readFileSync(jsonWritePath);
+				test.deepEqual(JSON.parse(file),jsonExpect);
+				fs.unlinkSync(jsonWritePath);
+>>>>>>> Stashed changes
 				test.done();
 			});
 		}
